@@ -1,10 +1,13 @@
 import React from "react";
 import { Container } from "./ToolElements";
 
-const Tool = () => {
+const Tool = (props) => {
   return (
     <>
-      <Container>Container</Container>
+      <Container styleProp={props.styleProp}>
+        {props.title}
+        {props.description}
+      </Container>
     </>
   );
 };
