@@ -17,4 +17,15 @@ body {
 
 .App {
   margin: 0rem 1rem;
+  text-align: center;
+}
+
+.copyright {
+  margin-top: 3rem;
+  color: rgb(247, 247, 247);
+}
+
+.copyright > a {
+  text-decoration: none;
+  color: lightblue;
 }

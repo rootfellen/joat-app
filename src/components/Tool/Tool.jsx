@@ -1,12 +1,14 @@
 import React from "react";
-import { Container } from "./ToolElements";
+import { Container, Description, Icon, Title } from "./ToolElements";
 
 const Tool = (props) => {
+  console.log(props);
   return (
     <>
       <Container styleProp={props.styleProp}>
-        {props.title}
-        {props.description}
+        <Icon src={props.icon} alt="App-Icon" />
+        <Title>{props.title}</Title>
+        <Description>{props.description}</Description>
       </Container>
     </>
   );
