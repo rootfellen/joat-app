@@ -1,6 +1,7 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
-export const Container = styled.div`
+export const Container = styled(Link)`
   background-color: rgba(255, 255, 255, 0.1);
   transition: 0.4s ease-in-out;
   display: flex;
@@ -9,28 +10,29 @@ export const Container = styled.div`
   align-items: center;
   text-align: center;
   padding: 2rem;
+  text-decoration: none;
   cursor: pointer;
   border-radius: 7px;
   box-shadow: 10px 10px 5px -6px rgba(0, 0, 0, 0.03);
-  background: ${({ styleProp }) =>
-    styleProp == "saloUI"
+  background: ${({ styleprop }) =>
+    styleprop == "saloUI"
       ? "linear-gradient(-90deg, #7A39F5 20%, #2E53F5 100%)"
       : ""};
   color: #fff;
-  grid-area: ${({ styleProp }) =>
-    styleProp == "passwordGenerator"
+  grid-area: ${({ styleprop }) =>
+    styleprop == "passwordGenerator"
       ? "passwordGenerator"
-      : styleProp == "saloUI"
+      : styleprop == "saloUI"
       ? "saloUI"
-      : styleProp == "pdfGenerator"
+      : styleprop == "pdfGenerator"
       ? "pdfGenerator"
-      : styleProp == "qrGenerator"
+      : styleprop == "qrGenerator"
       ? "qrGenerator"
-      : styleProp == "regExHelper"
+      : styleprop == "regExHelper"
       ? "regExHelper"
-      : styleProp == "colorGenerator"
+      : styleprop == "colorGenerator"
       ? "colorGenerator"
-      : styleProp == "voteCreator"
+      : styleprop == "voteCreator"
       ? "voteCreator"
       : ""};
   :hover {
@@ -40,7 +42,7 @@ export const Container = styled.div`
 
 export const Title = styled.h1`
   font-size: 1.2rem;
-  letter-spacing: 1px;
+  letter-spacing: 0.5px;
 `;
 
 export const Icon = styled.img`
