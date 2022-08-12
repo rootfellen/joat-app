@@ -38,10 +38,8 @@ const PasswordGenerator = () => {
   const [password, setPassword] = useState({
     value: "",
     length: "",
-    easytosay: false,
-    easytoread: false,
+    passwordType: "allcharacters",
     allcharacters: true,
-    pin: false,
     uppercase: true,
     lowercase: true,
     numbers: true,
@@ -64,6 +62,8 @@ const PasswordGenerator = () => {
     password.numbers,
     password.symbols,
   ]);
+
+  //? HANDLING MODAL COMPONENT
 
   const [showModal, setShowModal] = useState(false);
 
@@ -181,6 +181,7 @@ const PasswordGenerator = () => {
     });
   };
 
+  console.log(password);
   return (
     <>
       <Container>
@@ -242,12 +243,12 @@ const PasswordGenerator = () => {
                 <PasswordTypeContainer>
                   <div>
                     <PasswordTypeInput
-                      type="checkbox"
+                      type="radio"
                       value="easytosay"
                       id="easytosay"
-                      name="easytosay"
+                      name="passwordType"
                       onChange={handleChange}
-                      checked={password.easytosay}
+                      checked={password.passwordType == "easytosay"}
                     />
                     <PasswordTypeLabel htmlFor="easytosay">
                       Easy to say
@@ -255,12 +256,12 @@ const PasswordGenerator = () => {
                   </div>
                   <div>
                     <PasswordTypeInput
-                      type="checkbox"
+                      type="radio"
                       value="easytoread"
                       id="easytoread"
-                      name="easytoread"
+                      name="passwordType"
                       onChange={handleChange}
-                      checked={password.easytoread}
+                      checked={password.passwordType == "easytoread"}
                     />
                     <PasswordTypeLabel htmlFor="easytoread">
                       Easy to read
@@ -268,12 +269,12 @@ const PasswordGenerator = () => {
                   </div>
                   <div>
                     <PasswordTypeInput
-                      type="checkbox"
+                      type="radio"
                       value="allcharacters"
                       id="allcharacters"
-                      name="allcharacters"
+                      name="passwordType"
                       onChange={handleChange}
-                      checked={password.allcharacters}
+                      checked={password.passwordType == "allcharacters"}
                     />
                     <PasswordTypeLabel htmlFor="allcharacters">
                       All Characters
@@ -281,12 +282,12 @@ const PasswordGenerator = () => {
                   </div>
                   <div>
                     <PasswordTypeInput
-                      type="checkbox"
+                      type="radio"
                       value="pin"
                       id="pin"
-                      name="pin"
+                      name="passwordType"
                       onChange={handleChange}
-                      checked={password.pin}
+                      checked={password.passwordType == "pin"}
                     />
                     <PasswordTypeLabel htmlFor="pin">PIN</PasswordTypeLabel>
                   </div>
