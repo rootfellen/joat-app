@@ -7,11 +7,19 @@ const Tool = (props) => {
       <Container
         to={
           props.styleProp == "passwordGenerator"
-            ? "passwordGenerator"
+            ? "passwordgenerator"
             : props.styleProp == "pdfGenerator"
-            ? "pdfGenerator"
+            ? "pdfgenerator"
             : props.styleProp == "saloUI"
             ? "salo-ui"
+            : props.styleProp == "qrGenerator"
+            ? "qrgenerator"
+            : props.styleProp == "regExHelper"
+            ? "regexhelper"
+            : props.styleProp == "colorGenerator"
+            ? "colorgenerator"
+            : props.styleProp == "voteCreator"
+            ? "votecreator"
             : "/"
         }
         styleprop={props.styleProp}
