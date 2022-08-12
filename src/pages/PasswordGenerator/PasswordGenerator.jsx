@@ -36,18 +36,22 @@ const PasswordGenerator = () => {
   const [password, setPassword] = useState({
     value: "",
     length: length,
-    type: {
-      easyToSay: "",
-      easyToRead: "",
-      allCharacters: "",
-    },
-    settings: {
-      upperCase: "",
-      lowerCase: "",
-      numbers: "",
-      symbols: "",
-    },
+    easytosay: "",
+    easytoread: "",
+    allcharacters: true,
+    pin: "",
+    uppercase: true,
+    lowercase: true,
+    numbers: true,
+    symbols: true,
   });
+  const randomString = () => {
+    const random = Math.random()
+      .toString(36)
+      .replace(/[^a-z]+/g, "")
+      .substring(0, length);
+    return random;
+  };
 
   useEffect(() => {
     setPassword((prevState) => {
@@ -55,44 +59,41 @@ const PasswordGenerator = () => {
         ...prevState,
         value: randomString(),
         length: +length,
-        settings: {
-          upperCase: true,
-          lowerCase: true,
-          numbers: true,
-          symbols: true,
-        },
       };
     });
   }, [length]);
 
-  const randomString = () => {
-    const random = Math.random()
-      .toString(36)
-      .replace(/[^a-z]+/g, "")
-      .slice(0, length);
-    return random;
-  };
-
   const rangeHandler = (e) => {
     if (e.target.value < 0) {
       alert("We suggest to use minimum of 5 digits password.");
-      setLength(5);
+      setLength(() => {
+        return 5;
+      });
     } else if (e.target.value > 36) {
-      setLength(36);
+      setLength(() => {
+        return 36;
+      });
     } else if (e.target.value < 5) {
-      setLength(5);
+      setLength(() => {
+        return 5;
+      });
     } else {
-      setLength(e.target.value);
-    }
-    console.log(length);
-  };
-
-  const passwordTypeHandler = (e) => {
-    for (let i = 0; i < password.settings.length; i++) {
-      console.log(password.settings[i]);
+      setLength(() => {
+        return e.target.value;
+      });
     }
   };
 
+  const handleChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    setPassword((prevPassword) => {
+      return {
+        ...prevPassword,
+        [name]: type === "checkbox" ? checked : value,
+      };
+    });
+  };
+  console.log(password);
   return (
     <>
       <Container>
@@ -115,6 +116,7 @@ const PasswordGenerator = () => {
               <PasswordInput
                 type="text"
                 value={password.value}
+                name="password"
                 onChange={randomString}
               />
               <CopyBtn>
@@ -149,56 +151,66 @@ const PasswordGenerator = () => {
                 <PasswordTypeContainer>
                   <div>
                     <PasswordTypeInput
-                      type="radio"
-                      value="easy-to-say"
-                      id="1"
-                      name="passwordType"
+                      type="checkbox"
+                      value="easytosay"
+                      id="easytosay"
+                      name="easytosay"
+                      onChange={handleChange}
+                      checked={password.easytosay}
                     />
-                    <PasswordTypeLabel htmlFor="1">
+                    <PasswordTypeLabel htmlFor="easytosay">
                       Easy to say
                     </PasswordTypeLabel>
                   </div>
                   <div>
                     <PasswordTypeInput
-                      type="radio"
-                      value="easy-to-read"
-                      id="2"
-                      name="passwordType"
+                      type="checkbox"
+                      value="easytoread"
+                      id="easytoread"
+                      name="easytoread"
+                      onChange={handleChange}
+                      checked={password.easytoread}
                     />
-                    <PasswordTypeLabel htmlFor="2">
+                    <PasswordTypeLabel htmlFor="easytoread">
                       Easy to read
                     </PasswordTypeLabel>
                   </div>
                   <div>
                     <PasswordTypeInput
-                      type="radio"
-                      value="all characters"
-                      id="3"
-                      name="passwordType"
+                      type="checkbox"
+                      value="allcharacters"
+                      id="allcharacters"
+                      name="allcharacters"
+                      onChange={handleChange}
+                      checked={password.allcharacters}
                     />
-                    <PasswordTypeLabel htmlFor="3">
+                    <PasswordTypeLabel htmlFor="allcharacters">
                       All Characters
                     </PasswordTypeLabel>
                   </div>
                   <div>
                     <PasswordTypeInput
-                      type="radio"
-                      value="all characters"
-                      id="4"
-                      name="passwordType"
+                      type="checkbox"
+                      value="pin"
+                      id="pin"
+                      name="pin"
+                      onChange={handleChange}
+                      checked={password.pin}
                     />
-                    <PasswordTypeLabel htmlFor="4">PIN</PasswordTypeLabel>
+                    <PasswordTypeLabel htmlFor="pin">PIN</PasswordTypeLabel>
                   </div>
                 </PasswordTypeContainer>
+
+                {/* PASSWORD CONTENT CONTAINER */}
                 <PasswordContentContainer>
                   <div>
                     <PasswordContentInput
                       type="checkbox"
                       id="uppercase"
-                      name="upperCase"
-                      value="Uppercase"
-                      checked={password.settings.upperCase}
-                      onChange={passwordTypeHandler}
+                      name="uppercase"
+                      value="uppercase"
+                      onChange={handleChange}
+                      checked={password.uppercase}
                     />
                     <PasswordContentLabel htmlFor="uppercase">
                       Uppercase
@@ -208,10 +220,10 @@ const PasswordGenerator = () => {
                     <PasswordContentInput
                       type="checkbox"
                       id="lowercase"
-                      name="lowerCase"
-                      value="Lowercase"
-                      checked={password.settings.upperCase}
-                      onChange={passwordTypeHandler}
+                      name="lowercase"
+                      value="lowercase"
+                      onChange={handleChange}
+                      checked={password.lowercase}
                     />
                     <PasswordContentLabel htmlFor="lowercase">
                       Lowercase
@@ -223,8 +235,8 @@ const PasswordGenerator = () => {
                       id="numbers"
                       name="numbers"
                       value="numbers"
-                      checked={password.settings.numbers}
-                      onChange={passwordTypeHandler}
+                      onChange={handleChange}
+                      checked={password.numbers}
                     />
                     <PasswordContentLabel htmlFor="numbers">
                       Numbers
@@ -236,8 +248,8 @@ const PasswordGenerator = () => {
                       id="symbols"
                       name="symbols"
                       value="symbols"
-                      checked={password.settings.symbols}
-                      onChange={passwordTypeHandler}
+                      onChange={handleChange}
+                      checked={password.symbols}
                     />
                     <PasswordContentLabel htmlFor="symbols">
                       Symbols
