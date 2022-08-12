@@ -37,15 +37,15 @@ const PasswordGenerator = () => {
     value: "",
     length: length,
     type: {
-      easyToSay: false,
-      easyToRead: false,
-      allCharacters: true,
+      easyToSay: "",
+      easyToRead: "",
+      allCharacters: "",
     },
     settings: {
-      upperCase: true,
-      lowerCase: true,
-      numbers: true,
-      symbols: true,
+      upperCase: "",
+      lowerCase: "",
+      numbers: "",
+      symbols: "",
     },
   });
 
@@ -53,7 +53,14 @@ const PasswordGenerator = () => {
     setPassword((prevState) => {
       return {
         ...prevState,
+        value: randomString(),
         length: +length,
+        settings: {
+          upperCase: true,
+          lowerCase: true,
+          numbers: true,
+          symbols: true,
+        },
       };
     });
   }, [length]);
@@ -63,14 +70,7 @@ const PasswordGenerator = () => {
       .toString(36)
       .replace(/[^a-z]+/g, "")
       .slice(0, length);
-    setPassword((prevState) => {
-      return {
-        ...prevState,
-        value: random,
-      };
-    });
-    console.log(random);
-    console.log(random.length);
+    return random;
   };
 
   const rangeHandler = (e) => {
@@ -85,6 +85,12 @@ const PasswordGenerator = () => {
       setLength(e.target.value);
     }
     console.log(length);
+  };
+
+  const passwordTypeHandler = (e) => {
+    for (let i = 0; i < password.settings.length; i++) {
+      console.log(password.settings[i]);
+    }
   };
 
   return (
@@ -114,7 +120,7 @@ const PasswordGenerator = () => {
               <CopyBtn>
                 <IoCopyOutline style={{ fontSize: "2rem" }} />
               </CopyBtn>
-              <GenerateBtn onClick={randomString}>
+              <GenerateBtn>
                 <TbRefresh style={{ marginRight: "1rem" }} />
                 generate
               </GenerateBtn>
@@ -146,7 +152,7 @@ const PasswordGenerator = () => {
                       type="radio"
                       value="easy-to-say"
                       id="1"
-                      name="easy"
+                      name="passwordType"
                     />
                     <PasswordTypeLabel htmlFor="1">
                       Easy to say
@@ -157,7 +163,7 @@ const PasswordGenerator = () => {
                       type="radio"
                       value="easy-to-read"
                       id="2"
-                      name="easy"
+                      name="passwordType"
                     />
                     <PasswordTypeLabel htmlFor="2">
                       Easy to read
@@ -168,7 +174,7 @@ const PasswordGenerator = () => {
                       type="radio"
                       value="all characters"
                       id="3"
-                      name="easy"
+                      name="passwordType"
                     />
                     <PasswordTypeLabel htmlFor="3">
                       All Characters
@@ -179,7 +185,7 @@ const PasswordGenerator = () => {
                       type="radio"
                       value="all characters"
                       id="4"
-                      name="easy"
+                      name="passwordType"
                     />
                     <PasswordTypeLabel htmlFor="4">PIN</PasswordTypeLabel>
                   </div>
@@ -189,8 +195,10 @@ const PasswordGenerator = () => {
                     <PasswordContentInput
                       type="checkbox"
                       id="uppercase"
-                      name="uppercase"
+                      name="upperCase"
                       value="Uppercase"
+                      checked={password.settings.upperCase}
+                      onChange={passwordTypeHandler}
                     />
                     <PasswordContentLabel htmlFor="uppercase">
                       Uppercase
@@ -200,8 +208,10 @@ const PasswordGenerator = () => {
                     <PasswordContentInput
                       type="checkbox"
                       id="lowercase"
-                      name="lowercase"
+                      name="lowerCase"
                       value="Lowercase"
+                      checked={password.settings.upperCase}
+                      onChange={passwordTypeHandler}
                     />
                     <PasswordContentLabel htmlFor="lowercase">
                       Lowercase
@@ -213,6 +223,8 @@ const PasswordGenerator = () => {
                       id="numbers"
                       name="numbers"
                       value="numbers"
+                      checked={password.settings.numbers}
+                      onChange={passwordTypeHandler}
                     />
                     <PasswordContentLabel htmlFor="numbers">
                       Numbers
@@ -224,6 +236,8 @@ const PasswordGenerator = () => {
                       id="symbols"
                       name="symbols"
                       value="symbols"
+                      checked={password.settings.symbols}
+                      onChange={passwordTypeHandler}
                     />
                     <PasswordContentLabel htmlFor="symbols">
                       Symbols
