@@ -32,59 +32,118 @@ import { TbRefresh } from "react-icons/tb";
 import { useState } from "react";
 
 const PasswordGenerator = () => {
-  const [length, setLength] = useState(5);
+  const [passwordLength, setPasswordLength] = useState(5);
   const [password, setPassword] = useState({
     value: "",
-    length: length,
-    easytosay: "",
-    easytoread: "",
+    length: "",
+    easytosay: false,
+    easytoread: false,
     allcharacters: true,
-    pin: "",
+    pin: false,
     uppercase: true,
     lowercase: true,
     numbers: true,
     symbols: true,
   });
-  const randomString = () => {
-    const random = Math.random()
-      .toString(36)
-      .replace(/[^a-z]+/g, "")
-      .substring(0, length);
-    return random;
-  };
 
   useEffect(() => {
     setPassword((prevState) => {
       return {
         ...prevState,
-        value: randomString(),
-        length: +length,
+        length: +passwordLength,
       };
     });
-  }, [length]);
+  }, [passwordLength]);
 
-  const rangeHandler = (e) => {
+  //* HANDLING PASSWORD GENERATION
+
+  //! generate lowercase letter
+  const getRandomLower = () => {
+    return String.fromCharCode(Math.floor(Math.random() * 26) + 97);
+  };
+  //! generate uppercase letter
+  const getRandomUpper = () => {
+    return String.fromCharCode(Math.floor(Math.random() * 26) + 65);
+  };
+  //! generate random number
+  const getRandomNumber = () => {
+    return String.fromCharCode(Math.floor(Math.random() * 10) + 48);
+  };
+  //! generate random symbol
+  const getRandomSymbol = () => {
+    const symbols = "!@#$%^&*()_+=-{}[]<>?/.,:;±§~";
+    return symbols[Math.floor(Math.random() * symbols.length)];
+  };
+
+  const randomFunc = {
+    lower: getRandomLower,
+    upper: getRandomUpper,
+    number: getRandomNumber,
+    symbol: getRandomSymbol,
+  };
+
+  function generateResult() {
+    const hasLower = password.lowercase;
+    const hasUpper = password.uppercase;
+    const hasNumber = password.numbers;
+    const hasSymbol = password.symbols;
+    const hasLength = password.length;
+    const result = generateRandomPassword(
+      hasLower,
+      hasUpper,
+      hasNumber,
+      hasSymbol,
+      hasLength
+    );
+    setPassword((prevPassword) => {
+      return {
+        ...prevPassword,
+        value: result,
+      };
+    });
+    return result;
+  }
+
+  function generateRandomPassword(lower, upper, number, symbol, length) {
+    let generatedPassword = "";
+    const typesCount = lower + upper + number + symbol;
+    const typesArr = [{ lower }, { upper }, { number }, { symbol }].filter(
+      (item) => Object.values(item)[0]
+    );
+    if (typesCount == 0) {
+      return "";
+    }
+    for (let i = 0; i < length; i += typesCount) {
+      typesArr.forEach((type) => {
+        const funcName = Object.keys(type)[0];
+        generatedPassword += randomFunc[funcName]();
+      });
+    }
+    return generatedPassword.slice(0, length);
+  }
+
+  function rangeHandler(e) {
     if (e.target.value < 0) {
       alert("We suggest to use minimum of 5 digits password.");
-      setLength(() => {
+      setPasswordLength(() => {
         return 5;
       });
     } else if (e.target.value > 36) {
-      setLength(() => {
+      setPasswordLength(() => {
         return 36;
       });
     } else if (e.target.value < 5) {
-      setLength(() => {
+      setPasswordLength(() => {
         return 5;
       });
     } else {
-      setLength(() => {
+      setPasswordLength(() => {
         return e.target.value;
       });
     }
-  };
+  }
 
-  const handleChange = (e) => {
+  function handleChange(e) {
     const { name, value, type, checked } = e.target;
     setPassword((prevPassword) => {
       return {
@@ -92,7 +151,7 @@ const PasswordGenerator = () => {
         [name]: type === "checkbox" ? checked : value,
       };
     });
-  };
+  }
   console.log(password);
   return (
     <>
@@ -117,12 +176,12 @@ const PasswordGenerator = () => {
                 type="text"
                 value={password.value}
                 name="password"
-                onChange={randomString}
+                onChange={generateResult}
               />
               <CopyBtn>
                 <IoCopyOutline style={{ fontSize: "2rem" }} />
               </CopyBtn>
-              <GenerateBtn>
+              <GenerateBtn onClick={generateResult}>
                 <TbRefresh style={{ marginRight: "1rem" }} />
                 generate
               </GenerateBtn>
@@ -136,14 +195,14 @@ const PasswordGenerator = () => {
                   <RangeInputContainer>
                     <RangeInputNumber
                       type="number"
-                      value={length}
+                      value={passwordLength}
                       onChange={rangeHandler}
                     />
                     <RangeInputRange
                       type="range"
                       min="5"
                       max="36"
-                      value={length}
+                      value={passwordLength}
                       onChange={rangeHandler}
                     />
                   </RangeInputContainer>
