@@ -30,6 +30,8 @@ import PasswordGeneratorLogo from "/icons/passwordGenerator.png";
 import { IoCopyOutline } from "react-icons/io5";
 import { TbRefresh } from "react-icons/tb";
 import { useState } from "react";
+import { CopyToClipboard } from "react-copy-to-clipboard";
+import Modal from "./Modal/Modal.jsx";
 
 const PasswordGenerator = () => {
   const [passwordLength, setPasswordLength] = useState(5);
@@ -50,10 +52,27 @@ const PasswordGenerator = () => {
     setPassword((prevState) => {
       return {
         ...prevState,
+        value: generateResult(),
         length: +passwordLength,
       };
     });
-  }, [passwordLength]);
+  }, [
+    passwordLength,
+    password.length,
+    password.uppercase,
+    password.lowercase,
+    password.numbers,
+    password.symbols,
+  ]);
+
+  const [showModal, setShowModal] = useState(false);
+
+  const openModal = () => {
+    setShowModal(true);
+    setTimeout(() => {
+      setShowModal(false);
+    }, 3000);
+  };
 
   //* HANDLING PASSWORD GENERATION
 
@@ -75,6 +94,7 @@ const PasswordGenerator = () => {
     return symbols[Math.floor(Math.random() * symbols.length)];
   };
 
+  //* Object with methods to generate random letters,numbers,symbols
   const randomFunc = {
     lower: getRandomLower,
     upper: getRandomUpper,
@@ -82,7 +102,8 @@ const PasswordGenerator = () => {
     symbol: getRandomSymbol,
   };
 
-  function generateResult() {
+  //* Function to use generate random password function with given types
+  const generateResult = () => {
     const hasLower = password.lowercase;
     const hasUpper = password.uppercase;
     const hasNumber = password.numbers;
@@ -101,10 +122,15 @@ const PasswordGenerator = () => {
         value: result,
       };
     });
-    return result;
-  }
+  };
 
+  //* Generating random string based on given length, methods and choosen types
   function generateRandomPassword(lower, upper, number, symbol, length) {
+    // 1. Initialize password variable
+    // 2. Filter out unchecked types
+    // 3. Loop over length call generator function for each type
+    // 4. Add final password to result variable and return
+
     let generatedPassword = "";
     const typesCount = lower + upper + number + symbol;
     const typesArr = [{ lower }, { upper }, { number }, { symbol }].filter(
@@ -119,10 +145,12 @@ const PasswordGenerator = () => {
         generatedPassword += randomFunc[funcName]();
       });
     }
-    return generatedPassword.slice(0, length);
+    const finalOutput = generatedPassword.slice(0, length);
+    return finalOutput;
   }
 
-  function rangeHandler(e) {
+  //* Setting password length based on the input range value
+  const rangeHandler = (e) => {
     if (e.target.value < 0) {
       alert("We suggest to use minimum of 5 digits password.");
       setPasswordLength(() => {
@@ -141,9 +169,9 @@ const PasswordGenerator = () => {
         return e.target.value;
       });
     }
-  }
-
-  function handleChange(e) {
+  };
+  //* Controlling pass types checkboxes
+  const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     setPassword((prevPassword) => {
       return {
@@ -151,11 +179,12 @@ const PasswordGenerator = () => {
         [name]: type === "checkbox" ? checked : value,
       };
     });
-  }
-  console.log(password);
+  };
+
   return (
     <>
       <Container>
+        {showModal ? <Modal clipboard={password.value} /> : null}
         <LogoLink to="/">
           <LogoImg src={PasswordGeneratorLogo} />
         </LogoLink>
@@ -178,9 +207,12 @@ const PasswordGenerator = () => {
                 name="password"
                 onChange={generateResult}
               />
-              <CopyBtn>
-                <IoCopyOutline style={{ fontSize: "2rem" }} />
-              </CopyBtn>
+              <CopyToClipboard text={password.value} onCopy={() => openModal()}>
+                <CopyBtn>
+                  <IoCopyOutline style={{ fontSize: "2rem" }} />
+                </CopyBtn>
+              </CopyToClipboard>
+
               <GenerateBtn onClick={generateResult}>
                 <TbRefresh style={{ marginRight: "1rem" }} />
                 generate

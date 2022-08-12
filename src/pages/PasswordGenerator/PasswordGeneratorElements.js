@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 
 export const Container = styled.div`
+  position: relative;
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -94,6 +95,9 @@ export const PasswordInput = styled.input`
   transition: all 0.3s ease-in-out;
   :focus {
     outline-color: #408055;
+  }
+  ::selection {
+    background-color: #fec75a;
   }
 `;
 
@@ -226,6 +230,11 @@ export const RangeInputRange = styled.input`
     cursor: pointer;
     -webkit-appearance: none;
     margin-top: -0.625rem;
+    transition: transform 0.3s ease-in-out;
+
+    :hover {
+      transform: scale(1.1);
+    }
   }
   ::-moz-range-track {
     width: 100%;
