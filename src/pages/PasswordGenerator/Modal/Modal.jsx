@@ -1,5 +1,7 @@
 import React from "react";
 import { ModalContainer, ModalWrapper } from "./Modal.js";
+
+// MODAL
 const Modal = (props) => {
   console.log(props.clipboard.length + "px");
   return (
