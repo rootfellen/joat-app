@@ -201,7 +201,7 @@ export const RangeInputNumber = styled.input`
   color: #2a4f48;
   font-size: 1.5rem;
   max-width: 75px;
-  height: 56px;
+  height: 55px;
   border-radius: 16px;
   background: #fff1d4;
   border: 1px solid #2a4f48;
