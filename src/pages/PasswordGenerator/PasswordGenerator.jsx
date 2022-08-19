@@ -44,6 +44,9 @@ const PasswordGenerator = () => {
     lowercase: true,
     numbers: true,
     symbols: true,
+    pin: false,
+    easytoread: false,
+    easytosay: false,
   });
 
   useEffect(() => {
@@ -133,9 +136,11 @@ const PasswordGenerator = () => {
 
     let generatedPassword = "";
     const typesCount = lower + upper + number + symbol;
-    const typesArr = [{ lower }, { upper }, { number }, { symbol }].filter(
-      (item) => Object.values(item)[0]
-    );
+    const typesArr = [{ lower }, { upper }, { number }, { symbol }]
+      .sort(function () {
+        return Math.random() - 0.5;
+      })
+      .filter((item) => Object.values(item)[0]);
     if (typesCount == 0) {
       return "";
     }
@@ -177,10 +182,20 @@ const PasswordGenerator = () => {
       return {
         ...prevPassword,
         [name]: type === "checkbox" ? checked : value,
+        passwordType: value,
       };
     });
   };
 
+  const test = (e) => {
+    const { name, value, type, checked, id } = e.target;
+    setPassword((prevPassword) => {
+      return {
+        ...prevPassword,
+        passwordType: value,
+      };
+    });
+  };
   console.log(password);
   return (
     <>
@@ -247,7 +262,7 @@ const PasswordGenerator = () => {
                       value="easytosay"
                       id="easytosay"
                       name="passwordType"
-                      onChange={handleChange}
+                      onChange={test}
                       checked={password.passwordType == "easytosay"}
                     />
                     <PasswordTypeLabel htmlFor="easytosay">
@@ -260,7 +275,7 @@ const PasswordGenerator = () => {
                       value="easytoread"
                       id="easytoread"
                       name="passwordType"
-                      onChange={handleChange}
+                      onChange={test}
                       checked={password.passwordType == "easytoread"}
                     />
                     <PasswordTypeLabel htmlFor="easytoread">
@@ -273,7 +288,7 @@ const PasswordGenerator = () => {
                       value="allcharacters"
                       id="allcharacters"
                       name="passwordType"
-                      onChange={handleChange}
+                      onChange={test}
                       checked={password.passwordType == "allcharacters"}
                     />
                     <PasswordTypeLabel htmlFor="allcharacters">
@@ -286,7 +301,7 @@ const PasswordGenerator = () => {
                       value="pin"
                       id="pin"
                       name="passwordType"
-                      onChange={handleChange}
+                      onChange={test}
                       checked={password.passwordType == "pin"}
                     />
                     <PasswordTypeLabel htmlFor="pin">PIN</PasswordTypeLabel>
