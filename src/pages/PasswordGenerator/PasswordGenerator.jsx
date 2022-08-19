@@ -39,14 +39,10 @@ const PasswordGenerator = () => {
     value: "",
     length: "",
     passwordType: "allcharacters",
-    allcharacters: true,
     uppercase: true,
     lowercase: true,
     numbers: true,
     symbols: true,
-    pin: false,
-    easytoread: false,
-    easytosay: false,
   });
 
   useEffect(() => {
@@ -193,6 +189,7 @@ const PasswordGenerator = () => {
       return {
         ...prevPassword,
         passwordType: value,
+        uppercase: true,
       };
     });
   };
