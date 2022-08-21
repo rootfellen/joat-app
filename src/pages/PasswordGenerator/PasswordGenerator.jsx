@@ -53,6 +53,25 @@ const PasswordGenerator = () => {
         length: +passwordLength,
       };
     });
+    if (password.passwordType == "pin") {
+      setPassword((prevState) => {
+        return {
+          ...prevState,
+          uppercase: false,
+          lowercase: false,
+          symbols: false,
+        };
+      });
+    }
+    if (password.passwordType == "allcharacters") {
+      setPassword((prevState) => {
+        return {
+          ...prevState,
+          uppercase: true,
+          lowercase: true,
+        };
+      });
+    }
   }, [
     passwordLength,
     password.length,
@@ -60,6 +79,7 @@ const PasswordGenerator = () => {
     password.lowercase,
     password.numbers,
     password.symbols,
+    password.passwordType,
   ]);
 
   //? HANDLING MODAL COMPONENT
@@ -184,16 +204,16 @@ const PasswordGenerator = () => {
   };
 
   const test = (e) => {
+    // Easy to read - Avoid ambiguous characters like l, 1, O, 0
+    // Easy to say - Avoid numbers and special characters
     const { name, value, type, checked, id } = e.target;
     setPassword((prevPassword) => {
       return {
         ...prevPassword,
         passwordType: value,
-        uppercase: true,
       };
     });
   };
-  console.log(password);
   return (
     <>
       <Container>
