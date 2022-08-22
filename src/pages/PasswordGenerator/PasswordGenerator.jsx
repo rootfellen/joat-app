@@ -107,6 +107,31 @@ const PasswordGenerator = () => {
     }, 3000);
   };
 
+  //* HANDLING PIN GENERATION
+
+  const pinGenerator = (value) => {
+    if (passwordLength == 5) {
+      const output = value.match(/.{1,1}/g).join("-");
+      return output;
+    }
+    if (passwordLength % 2 == 0) {
+      const output = value.match(/.{1,2}/g).join("--");
+      return output;
+    }
+    if (passwordLength > 5 && passwordLength % 2 == 1) {
+      const output = value.match(/.{1,3}/g).join("---");
+      return output;
+    }
+    if (passwordLength > 10 && passwordLength % 2 == 0) {
+      const output = value.match(/.{1,3}/g).join("---");
+      return output;
+    }
+    if (passwordLength > 16 && passwordLength % 2 == 0) {
+      const output = value.match(/.{1,3}/g).join("--");
+      return output;
+    }
+  };
+
   //* HANDLING PASSWORD GENERATION
 
   //! generate lowercase letter
@@ -181,6 +206,11 @@ const PasswordGenerator = () => {
       });
     }
     const finalOutput = generatedPassword.slice(0, length);
+    if (password.passwordType == "pin") {
+      return pinGenerator(finalOutput);
+    } else {
+      return finalOutput;
+    }
     return finalOutput;
   }
 
@@ -228,6 +258,7 @@ const PasswordGenerator = () => {
         passwordType: value,
       };
     });
+    console.log(e.target);
   };
 
   return (
@@ -268,7 +299,9 @@ const PasswordGenerator = () => {
               </GenerateBtn>
             </TopSettings>
             <LowSettings>
-              <LowSettingsTitle>Customize your password</LowSettingsTitle>
+              <LowSettingsTitle onClick={pinGenerator}>
+                Customize your password
+              </LowSettingsTitle>
               <Divider />
               <LowSettingsWrapper>
                 <LengthSettings>
