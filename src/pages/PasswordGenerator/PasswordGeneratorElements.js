@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { IoMdInformationCircle } from "react-icons/io";
 
 export const Container = styled.div`
   position: relative;
@@ -283,7 +284,7 @@ export const PasswordTypeInput = styled.input`
 export const PasswordTypeLabel = styled.label`
   color: #2a4f48;
   font-size: 1.5rem;
-  margin-left: 1rem;
+  margin: 0rem 0.5rem 0rem 1rem;
   cursor: pointer;
 `;
 
@@ -319,4 +320,35 @@ export const PasswordContentLabel = styled.label`
   font-size: 1.5rem;
   margin-left: 1rem;
   cursor: pointer;
+`;
+
+export const PasswordTypeInfo = styled.div`
+  position: relative;
+  width: 1rem;
+  height: 1rem;
+  background-color: #2a4f48;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  font-weight: 800;
+  font-size: 0.7rem;
+  :hover {
+    span {
+      display: block;
+    }
+  }
+  span {
+    display: none;
+    position: absolute;
+    width: 9rem;
+    text-align: center;
+    top: -40px;
+    left: 90%;
+    color: #2a4f48;
+    background-color: #fec75a;
+    padding: 0.5rem;
+    border-radius: 7px;
+  }
 `;

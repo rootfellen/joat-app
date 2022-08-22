@@ -25,6 +25,7 @@ import {
   PasswordContentContainer,
   PasswordContentInput,
   PasswordContentLabel,
+  PasswordTypeInfo,
 } from "./PasswordGeneratorElements";
 import PasswordGeneratorLogo from "/icons/passwordGenerator.png";
 import { IoCopyOutline } from "react-icons/io5";
@@ -69,6 +70,19 @@ const PasswordGenerator = () => {
           ...prevState,
           uppercase: true,
           lowercase: true,
+          symbols: true,
+          numbers: true,
+        };
+      });
+    }
+    if (password.passwordType == "easytosay") {
+      setPassword((prevState) => {
+        return {
+          ...prevState,
+          uppercase: true,
+          lowercase: true,
+          symbols: false,
+          numbers: false,
         };
       });
     }
@@ -206,6 +220,7 @@ const PasswordGenerator = () => {
   const test = (e) => {
     // Easy to read - Avoid ambiguous characters like l, 1, O, 0
     // Easy to say - Avoid numbers and special characters
+    // PIN - sequense of numbers seperated with "-"
     const { name, value, type, checked, id } = e.target;
     setPassword((prevPassword) => {
       return {
@@ -214,6 +229,7 @@ const PasswordGenerator = () => {
       };
     });
   };
+
   return (
     <>
       <Container>
@@ -285,6 +301,9 @@ const PasswordGenerator = () => {
                     <PasswordTypeLabel htmlFor="easytosay">
                       Easy to say
                     </PasswordTypeLabel>
+                    <PasswordTypeInfo>
+                      i <span>Avoid numbers and special characters</span>
+                    </PasswordTypeInfo>
                   </div>
                   <div>
                     <PasswordTypeInput
@@ -298,6 +317,9 @@ const PasswordGenerator = () => {
                     <PasswordTypeLabel htmlFor="easytoread">
                       Easy to read
                     </PasswordTypeLabel>
+                    <PasswordTypeInfo>
+                      i<span>Avoid ambiguous characters like l, 1, O, 0</span>
+                    </PasswordTypeInfo>
                   </div>
                   <div>
                     <PasswordTypeInput
@@ -322,6 +344,10 @@ const PasswordGenerator = () => {
                       checked={password.passwordType == "pin"}
                     />
                     <PasswordTypeLabel htmlFor="pin">PIN</PasswordTypeLabel>
+                    <PasswordTypeInfo>
+                      i
+                      <span>Randomly generated digits, seperated with '-'</span>
+                    </PasswordTypeInfo>
                   </div>
                 </PasswordTypeContainer>
 
