@@ -258,7 +258,9 @@ const PasswordGenerator = () => {
         passwordType: value,
       };
     });
-    console.log(e.target);
+    if (id == "pin") {
+      console.log(value);
+    }
   };
 
   return (
