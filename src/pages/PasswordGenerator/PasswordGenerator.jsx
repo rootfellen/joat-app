@@ -61,6 +61,7 @@ const PasswordGenerator = () => {
           uppercase: false,
           lowercase: false,
           symbols: false,
+          numbers: true,
         };
       });
     }
@@ -83,6 +84,17 @@ const PasswordGenerator = () => {
           lowercase: true,
           symbols: false,
           numbers: false,
+        };
+      });
+    }
+    if (password.passwordType == "easytoread") {
+      setPassword((prevState) => {
+        return {
+          ...prevState,
+          uppercase: true,
+          lowercase: true,
+          symbols: true,
+          numbers: true,
         };
       });
     }
@@ -123,13 +135,16 @@ const PasswordGenerator = () => {
       return output;
     }
     if (passwordLength > 10 && passwordLength % 2 == 0) {
-      const output = value.match(/.{1,3}/g).join("---");
-      return output;
-    }
-    if (passwordLength > 16 && passwordLength % 2 == 0) {
       const output = value.match(/.{1,3}/g).join("--");
       return output;
     }
+  };
+
+  //* HANDLING EASY TO READ PASSWORD GENERATION
+
+  const easyToReadFilter = (value) => {
+    const output = value.match(/[^lI1O0]/g).join("");
+    return output;
   };
 
   //* HANDLING PASSWORD GENERATION
@@ -208,10 +223,12 @@ const PasswordGenerator = () => {
     const finalOutput = generatedPassword.slice(0, length);
     if (password.passwordType == "pin") {
       return pinGenerator(finalOutput);
+    }
+    if (password.passwordType == "easytoread") {
+      return easyToReadFilter(finalOutput);
     } else {
       return finalOutput;
     }
-    return finalOutput;
   }
 
   //* Setting password length based on the input range value
@@ -258,11 +275,9 @@ const PasswordGenerator = () => {
         passwordType: value,
       };
     });
-    if (id == "pin") {
-      console.log(value);
-    }
   };
 
+  console.log(password);
   return (
     <>
       <Container>
@@ -396,6 +411,7 @@ const PasswordGenerator = () => {
                       value="uppercase"
                       onChange={handleChange}
                       checked={password.uppercase}
+                      disabled={password.passwordType == "pin" ? true : false}
                     />
                     <PasswordContentLabel htmlFor="uppercase">
                       Uppercase
@@ -409,6 +425,7 @@ const PasswordGenerator = () => {
                       value="lowercase"
                       onChange={handleChange}
                       checked={password.lowercase}
+                      disabled={password.passwordType == "pin" ? true : false}
                     />
                     <PasswordContentLabel htmlFor="lowercase">
                       Lowercase
@@ -422,6 +439,9 @@ const PasswordGenerator = () => {
                       value="numbers"
                       onChange={handleChange}
                       checked={password.numbers}
+                      disabled={
+                        password.passwordType == "easytosay" ? true : false
+                      }
                     />
                     <PasswordContentLabel htmlFor="numbers">
                       Numbers
@@ -435,6 +455,13 @@ const PasswordGenerator = () => {
                       value="symbols"
                       onChange={handleChange}
                       checked={password.symbols}
+                      disabled={
+                        password.passwordType == "pin"
+                          ? true
+                          : password.passwordType == "easytosay"
+                          ? true
+                          : false
+                      }
                     />
                     <PasswordContentLabel htmlFor="symbols">
                       Symbols

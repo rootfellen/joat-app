@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { IoMdInformationCircle } from "react-icons/io";
 
 export const Container = styled.div`
   position: relative;
@@ -23,7 +22,7 @@ export const Wrapper = styled.div`
   max-width: 65%;
   width: 100%;
   background-color: #fff;
-  padding: 3.4375rem 3.625rem;
+  padding: 3rem 3.625rem;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
