@@ -28,7 +28,7 @@ export const Wrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: 1rem;
+  margin: 0rem 1rem 1rem 1rem;
 `;
 export const Title = styled.h1`
   color: #2a4f48;
