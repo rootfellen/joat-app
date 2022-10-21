@@ -27,7 +27,7 @@ import {
   PasswordContentLabel,
   PasswordTypeInfo,
 } from "./PasswordGeneratorElements";
-import PasswordGeneratorLogo from "/icons/passwordGenerator.png";
+import PasswordGeneratorLogo from "../../icons/passwordGenerator.png";
 import { IoCopyOutline } from "react-icons/io5";
 import { TbRefresh } from "react-icons/tb";
 import { useState } from "react";
@@ -277,7 +277,6 @@ const PasswordGenerator = () => {
     });
   };
 
-  console.log(password);
   return (
     <>
       <Container>

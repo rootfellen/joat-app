@@ -1,12 +1,12 @@
 import { Container } from "./AppElements";
 import data from "../../assets/data";
-import saloUI from "/icons/saloUI.png";
-import passwordGenerator from "/icons/passwordGenerator.png";
-import pdfGenerator from "/icons/pdfGenerator.png";
-import qrGenerator from "/icons/qrGenerator.png";
-import regExHelper from "/icons/regExHelper.png";
-import colorGenerator from "/icons/colorGenerator.png";
-import voteCreator from "/icons/voteCreator.png";
+import saloUI from "../../icons/saloUI.png";
+import passwordGenerator from "../../icons/passwordGenerator.png";
+import pdfGenerator from "../../icons/pdfGenerator.png";
+import qrGenerator from "../../icons/qrGenerator.png";
+import regExHelper from "../../icons/regExHelper.png";
+import colorGenerator from "../../icons/colorGenerator.png";
+import voteCreator from "../../icons/voteCreator.png";
 
 import "./App.jsx";
 import Tool from "../Tool/Tool";
