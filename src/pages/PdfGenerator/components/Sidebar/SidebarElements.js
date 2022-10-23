@@ -52,8 +52,16 @@ export const Label = styled.label`
   font-size: 1.125rem;
 `;
 
-export const Message = styled.div`
-  padding: 1rem;
+export const Message = styled.span`
+  display: flex;
+  padding: 2rem;
   border-radius: 7px;
-  background-color: ;
+  background-color: #9da192;
+  color: #31403c;
+  line-height: 1.2rem;
+`;
+
+export const TextArea = styled.textarea`
+  height: 50%;
+  margin-top: 1.125rem;
 `;

@@ -1,12 +1,13 @@
-import React from "react";
+import React, { createContext, useState } from "react";
 import { LogoLink } from "../PasswordGenerator/PasswordGeneratorElements";
 import { Container, Logo, Wrapper } from "./pdfGeneratorElements";
 import pdfGeneratorLogo from "../../icons/pdfGenerator.png";
 import jsPDF from "jspdf";
 import Output from "./components/Output/Output";
 import Sidebar from "./components/Sidebar/Sidebar";
-
+export const TextContext = createContext("");
 const PdfGenerator = () => {
+  const [text, setText] = useState("");
   const doc = new jsPDF();
   const generatePDF = () => {
     doc.text(20, 20, "This is the first title.");
@@ -16,15 +17,17 @@ const PdfGenerator = () => {
     doc.save("demo.pdf");
   };
   return (
-    <Wrapper>
-      <LogoLink to="/">
-        <Logo src={pdfGeneratorLogo} />
-      </LogoLink>
-      <Container>
-        <Sidebar />
-        <Output generatePDF={generatePDF} />
-      </Container>
-    </Wrapper>
+    <TextContext.Provider value={text}>
+      <Wrapper>
+        <LogoLink to="/">
+          <Logo src={pdfGeneratorLogo} />
+        </LogoLink>
+        <Container>
+          <Sidebar />
+          <Output generatePDF={generatePDF} />
+        </Container>
+      </Wrapper>
+    </TextContext.Provider>
   );
 };
 

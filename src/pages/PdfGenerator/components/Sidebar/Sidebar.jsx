@@ -1,7 +1,6 @@
 import {
   Chip,
   FormControl,
-  Input,
   InputLabel,
   MenuItem,
   OutlinedInput,
@@ -10,7 +9,8 @@ import {
 import { Box } from "@mui/system";
 import React from "react";
 import { useState } from "react";
-import { Wrapper } from "./SidebarElements";
+import { Wrapper, Message, TextArea } from "./SidebarElements";
+import InfoIcon from "@mui/icons-material/Info";
 
 const Sidebar = () => {
   const [data, setData] = useState({
@@ -38,7 +38,14 @@ const Sidebar = () => {
   console.log(data);
   return (
     <Wrapper>
-      <Message></Message>
+      <Message>
+        <InfoIcon
+          style={{ verticalAlign: "middle", paddingRight: "0.2rem" }}
+          fontSize="10px"
+        />
+        On the document preview, the signature line always shows the digital
+        signature data, it can be your full name or your initials.
+      </Message>
       <FormControl fullWidth style={{ margin: "1rem 0rem" }}>
         <InputLabel id="templates">Document template</InputLabel>
         <Select
@@ -107,7 +114,7 @@ const Sidebar = () => {
           />
         </FormControl>
       </div>
-      <textarea style={{ height: "60%", marginTop: "1.125rem" }}></textarea>
+      <TextArea></TextArea>
     </Wrapper>
   );
 };
