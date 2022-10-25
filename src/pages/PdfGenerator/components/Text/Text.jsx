@@ -1,10 +1,10 @@
 import React from "react";
 import { TextContainer } from "./TextElements";
 
-const Text = () => {
+const Text = ({ value }) => {
   return (
     <>
-      <TextContainer>Text</TextContainer>
+      <TextContainer>{value}</TextContainer>
     </>
   );
 };

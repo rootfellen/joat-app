@@ -64,4 +64,5 @@ export const Message = styled.span`
 export const TextArea = styled.textarea`
   height: 50%;
   margin-top: 1.125rem;
+  padding: 1rem;
 `;

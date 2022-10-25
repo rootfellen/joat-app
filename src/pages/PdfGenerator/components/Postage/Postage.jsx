@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
+import { Context } from "../../PdfGenerator";
 import { PostageContainer } from "./PostageElements";
 
 const Postage = () => {
-  return <PostageContainer>Postage</PostageContainer>;
+  const { data } = useContext(Context);
+  return <PostageContainer>{data.postage}</PostageContainer>;
 };
 
 export default Postage;

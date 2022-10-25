@@ -1,8 +1,13 @@
 import React from "react";
-import { SignatureContainer } from "./SignatureElements";
+import { SignatureContainer, SignatureInput } from "./SignatureElements";
 
 const Signature = () => {
-  return <SignatureContainer>Signature</SignatureContainer>;
+  return (
+    <SignatureContainer>
+      <SignatureInput />
+      <span>Contractor Signature</span>
+    </SignatureContainer>
+  );
 };
 
 export default Signature;

@@ -11,14 +11,10 @@ import React from "react";
 import { useState } from "react";
 import { Wrapper, Message, TextArea } from "./SidebarElements";
 import InfoIcon from "@mui/icons-material/Info";
+import { useContext } from "react";
+import { Context } from "../../PdfGenerator";
 
-const Sidebar = () => {
-  const [data, setData] = useState({
-    postage: "",
-    sections: [],
-    template: "",
-  });
-
+const Sidebar = (props) => {
   const sections = [
     "Employee Address",
     "Contractor Signature",
@@ -26,16 +22,8 @@ const Sidebar = () => {
     "Title",
   ];
 
-  const selectHandler = (e) => {
-    setData((prevState) => {
-      const { name, value, type, checked } = e.target;
-      return {
-        ...prevState,
-        [name]: type === "checkbox" ? checked : value,
-      };
-    });
-  };
-  console.log(data);
+  const { data, text } = useContext(Context);
+
   return (
     <Wrapper>
       <Message>
@@ -54,7 +42,7 @@ const Sidebar = () => {
           value={data.template}
           name="template"
           label="Document template"
-          onChange={selectHandler}
+          onChange={props.selectHandler}
         >
           <MenuItem value={"Invoice"}>Invoice</MenuItem>
           <MenuItem value={"Letter"}>Cover Letter</MenuItem>
@@ -64,7 +52,7 @@ const Sidebar = () => {
         </Select>
       </FormControl>
       <div style={{ display: "flex", justifyContent: "space-between" }}>
-        <FormControl style={{ width: "48%" }}>
+        <FormControl style={{ width: "50%" }}>
           <InputLabel id="sections">Document Sections</InputLabel>
           <Select
             labelId="sections"
@@ -72,7 +60,7 @@ const Sidebar = () => {
             multiple
             value={data.sections}
             name="sections"
-            onChange={selectHandler}
+            onChange={props.selectHandler}
             input={
               <OutlinedInput
                 id="select-multiple-chip"
@@ -109,12 +97,13 @@ const Sidebar = () => {
           <OutlinedInput
             fullWidth
             type="date"
-            onChange={selectHandler}
+            value={data.postage}
+            onChange={props.selectHandler}
             name="postage"
           />
         </FormControl>
       </div>
-      <TextArea></TextArea>
+      <TextArea onChange={props.handleText} value={text}></TextArea>
     </Wrapper>
   );
 };
