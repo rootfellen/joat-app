@@ -1,15 +1,10 @@
 import React, { useState } from "react";
-import { TitleContainer, TitleInput } from "./TitleElements";
+import { TitleContainer, TemplateTitle } from "./TitleElements";
 
-const Title = () => {
-  const [value, setValue] = useState("Agreement");
-  const handleChange = (e) => {
-    setValue(e.target.value);
-  };
-
+const Title = ({ value }) => {
   return (
     <TitleContainer>
-      <TitleInput type="text" value={value} onChange={handleChange} />
+      <TemplateTitle>{value}</TemplateTitle>
     </TitleContainer>
   );
 };

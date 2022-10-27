@@ -9,16 +9,17 @@ import Title from "../Title/Title";
 
 import { Wrapper, Button, Preview } from "./OutputElements";
 
-const Output = ({ generatePDF }) => {
+const Output = ({ generatePDF, title, companies }) => {
   const { data, text } = useContext(Context);
 
+  console.log(title);
   return (
     <Wrapper>
       <Preview>
         <Postage />
-        <EAddress />
-        <CAddress />
-        <Title />
+        <EAddress companies={companies} />
+        <CAddress companies={companies} />
+        <Title value={title} />
         <Text value={text} />
         <Signature />
       </Preview>

@@ -14,22 +14,14 @@ export const EAddressContainer = styled.div`
   }
 `;
 
-export const TitleInput = styled.input`
+export const EAddressTitle = styled.h2`
   width: 100%;
   font-size: 0.95rem;
   margin-bottom: 1rem;
   font-weight: 700;
-  border: none;
-  &:focus {
-    outline: none;
-  }
 `;
-export const SubTitleInput = styled.input`
+export const EAddressSubTitle = styled.p`
   margin: 0;
   width: 100%;
   font-size: 0.75rem;
-  border: none;
-  &:focus {
-    outline: none;
-  }
 `;

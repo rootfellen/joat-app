@@ -17,6 +17,7 @@ export const SignatureInput = styled.input`
   margin: 0;
   width: 100%;
   font-size: 0.75rem;
+  cursor: pointer;
   border: none;
   border-bottom: 1px solid #9da191;
   &:focus {

@@ -1,35 +1,18 @@
 import React, { useState } from "react";
 import {
   EAddressContainer,
-  SubTitleInput,
-  TitleInput,
+  EAddressTitle,
+  EAddressSubTitle,
 } from "./EAddressElements";
 
-const EAddress = () => {
-  const [value, setValue] = useState({
-    title: "Sal-to International LLC",
-    address: "65139 Rough St. Oakland",
-    state: "California 395213",
-  });
-  const handleChange = (e) => {
-    const { name } = e.target;
-    setValue((prevState) => {
-      return {
-        ...prevState,
-        [name]: e.target.value,
-      };
-    });
-  };
+const EAddress = ({ companies }) => {
+  const [employer, contractor] = companies;
 
   return (
     <EAddressContainer>
-      <TitleInput name="title" value={value.title} onChange={handleChange} />
-      <SubTitleInput
-        name="address"
-        value={value.address}
-        onChange={handleChange}
-      />
-      <SubTitleInput name="state" value={value.state} onChange={handleChange} />
+      <EAddressTitle>{employer.title}</EAddressTitle>
+      <EAddressSubTitle>{employer.address}</EAddressSubTitle>
+      <EAddressSubTitle>{employer.state}</EAddressSubTitle>
     </EAddressContainer>
   );
 };

@@ -10,11 +10,8 @@ export const TitleContainer = styled.div`
   }
 `;
 
-export const TitleInput = styled.input`
+export const TemplateTitle = styled.h3`
+  font-size: 0.9rem;
   font-weight: 700;
   text-align: center;
-  border: none;
-  &:focus {
-    outline: none;
-  }
 `;

@@ -44,11 +44,11 @@ const Sidebar = (props) => {
           label="Document template"
           onChange={props.selectHandler}
         >
-          <MenuItem value={"Invoice"}>Invoice</MenuItem>
-          <MenuItem value={"Letter"}>Cover Letter</MenuItem>
-          <MenuItem value={"Agreement"}>Agreement</MenuItem>
-          <MenuItem value={"Recommendation"}>Recommendation</MenuItem>
-          <MenuItem value={"Certificate"}>Certificate</MenuItem>
+          {props.templates.map((template) => (
+            <MenuItem key={template} value={template}>
+              {template}
+            </MenuItem>
+          ))}
         </Select>
       </FormControl>
       <div style={{ display: "flex", justifyContent: "space-between" }}>
